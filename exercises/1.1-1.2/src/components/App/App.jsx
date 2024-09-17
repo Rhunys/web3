@@ -1,6 +1,6 @@
+import Content from 'components/App/Content/Content';
+import Total from 'components/App/Total/Total';
 import Header from './Header/Header';
-import Content from './Content/Content';
-import Total from './Total/Total';
 
 const App = () => {
   const cours = 'Half Stack application development'
@@ -22,4 +22,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;
