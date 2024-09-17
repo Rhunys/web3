@@ -1,4 +1,4 @@
-import Part from 'components/App/Content/Part/Part'
+import Part from 'components/Content/Part/Part'
 
 const Content = (props) => {
     return (
