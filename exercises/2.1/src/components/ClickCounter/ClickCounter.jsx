@@ -1,13 +1,15 @@
 import { useState } from 'react'
 
 function ClickCounter({ title, message, messageHover }) {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(JSON.parse(localStorage.getItem("count")) || 0);
   const [messageDisplay, setMessageDisplay] = useState(false);
 
-  const handleClick = () => {
+  const handleCount = () => {
     console.log(`value of count before click: ${count}`);
     setCount((count) => count + 1);
   }
+
+  localStorage.setItem("count", JSON.stringify(count));
 
   const handleMouse = () => {
     console.log(`value of messageDisplay before mouse on: ${messageDisplay}`);
@@ -17,12 +19,12 @@ function ClickCounter({ title, message, messageHover }) {
   return (
     <div>
         <h1>{title}</h1>
-        <button onClick={handleClick} onMouseOver={handleMouse} onMouseLeave={handleMouse}>
-            count is {count}
-        </button>
         <p>
           {messageDisplay ? `${messageHover}` : ""}
         </p>
+        <button onClick={handleCount} onMouseEnter={handleMouse} onMouseLeave={handleMouse}>
+            count is {count}
+        </button>
         <p>
           {count>=10 ? `${message}` : "nul"}
         </p>
