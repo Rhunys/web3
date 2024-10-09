@@ -32,19 +32,19 @@ const App = () => {
         <Loading />
       </div>
     )
+  } else {
+    return (
+        <div>
+            <h1>give feedback</h1>
+    
+            <Button handleClick={handleGoodClick} text="good"/>
+            <Button handleClick={handleNeutralClick} text="neutral"/>
+            <Button handleClick={handleBadClick} text="bad"/>
+            
+            <Statistics good={good} neutral={neutral} bad={bad} />
+        </div>
+      )
   }
-
-  return (
-    <div>
-        <h1>give feedback</h1>
-
-        <Button handleClick={handleGoodClick} text="good"/>
-        <Button handleClick={handleNeutralClick} text="neutral"/>
-        <Button handleClick={handleBadClick} text="bad"/>
-        
-        <Statistics good={good} neutral={neutral} bad={bad} />
-    </div>
-  )
 }
 
 export default App
