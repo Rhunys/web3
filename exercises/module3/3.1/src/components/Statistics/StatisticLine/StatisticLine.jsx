@@ -1,3 +1,4 @@
+// eslint-disable-next-line react/prop-types
 const StatisticLine = ({ text, value }) => {
     if(text === "positive"){
         return (

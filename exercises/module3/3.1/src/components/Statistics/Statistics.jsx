@@ -1,8 +1,7 @@
-import React from 'react'
 import StatisticLine from './StatisticLine/StatisticLine'
 
+// eslint-disable-next-line react/prop-types
 const Statistics = ({good,neutral,bad}) => {
-  // save clicks of each button to its own state
   if(good + neutral + bad === 0){
     return (
       <div>
