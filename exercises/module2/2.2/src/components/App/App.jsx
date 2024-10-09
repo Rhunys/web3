@@ -11,7 +11,9 @@ function App() {
     <>
       <div className="card">
         <ColouredBox />
+        <br />
         <ColouredBox />
+        <br />
         <ColouredBox />
       </div>
     </>

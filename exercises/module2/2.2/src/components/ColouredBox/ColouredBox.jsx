@@ -5,9 +5,10 @@ function ColouredBox() {
   const colours = ['red', 'green','blue','yellow','purple']
 
   const handleColour = () => {
-    setColourIndex(colourIndex + 1);
     if(colourIndex === colours.length - 1){
       setColourIndex(0);
+    } else {
+      setColourIndex(colourIndex + 1);
     }
   }
 
