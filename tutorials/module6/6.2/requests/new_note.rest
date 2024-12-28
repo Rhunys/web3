@@ -1,0 +1,27 @@
+@hostname = localhost
+@port = 3001
+@host = http://{{hostname}}:{{port}}
+@noteId = 677014e70b593bebc4940659
+@missingNoteId = "1"
+
+### Get All
+GET {{host}}/api/notes HTTP/1.1
+Accept: application/json
+
+POST http://{{hostname}}:{{port}}/api/notes
+Content-Type: application/json
+
+{
+  "content": "This is a new note",
+  "important": true
+}
+
+### Get id
+GET http://localhost:3001/api/notes/{{noteId}} HTTP/1.1
+Accept: application/json
+
+### Get wrong id
+GET http://localhost:3001/api/notes/{{{{missingNoteId}}}} HTTP/1.1
+Accept: application/json
+
+

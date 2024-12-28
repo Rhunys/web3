@@ -6,8 +6,8 @@ if (process.argv.length<5 && process.argv.length!=3) {
 }
 
 const password = process.argv[2];
-const contactName = process.argv[3];
-const contactNumber = process.argv[4];
+const personName = process.argv[3];
+const personNumber = process.argv[4];
 
 const url =
   `mongodb+srv://gauthier:${password}@cluster0.8qtj0.mongodb.net/phoneBookApp?retryWrites=true&w=majority&appName=Cluster0`
@@ -15,31 +15,29 @@ const url =
 mongoose.set('strictQuery',false)
 mongoose.connect(url)
 
-const contactSchema = new mongoose.Schema({
+const personSchema = new mongoose.Schema({
   name: String,
   number: String,
 })
 
-const Contact = mongoose.model('Contact', contactSchema)
+const Person = mongoose.model('Person', personSchema)
 
-const contact = new Contact({
-    name: contactName,
-    number: contactNumber,
+const person = new Person({
+    name: personName,
+    number: personNumber,
 })
 
-
-
 if(process.argv.length==3) {
-    Contact.find({}).then(result => {
+    Person.find({}).then(result => {
         console.log('phonebook:\n')
-        result.forEach(contact => {
-        console.log(contact)
+        result.forEach(person => {
+        console.log(person)
         })
         mongoose.connection.close()
     })
 } else {
-    contact.save().then(response => {
-        console.log('added ' + contactName + ' number ' + contactNumber + ' to phonebook')
+    person.save().then(response => {
+        console.log('added ' + personName + ' number ' + personNumber + ' to phonebook')
         mongoose.connection.close()
       })
 }
