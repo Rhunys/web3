@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const Person = require("../models/person")
+const NotFoundError = require('../utils/NotFoundError')
+
 
 // Find all
 router.get("/", (req, res, next) => {

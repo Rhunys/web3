@@ -3,6 +3,10 @@ const express = require('express')
 const app = express()
 require('dotenv').config();
 
+app.use(express.static('dist'))
+app.use(express.json())
+app.use(requestLogger)
+
 const Note = require('./models/note')
 
 const password = process.argv[2]
@@ -20,6 +24,13 @@ const note = new Note({
     content: 'HTML is easy',
     important: true,
 })
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
+
+// handler of requests with unknown endpoint
+app.use(unknownEndpoint)
 
 app.get('/api/notes', (request, response) => {
     Note.find({}).then(notes => {
@@ -45,20 +56,16 @@ app.post('/api/notes', (request, response) => {
   })
 })
 
-app.get('/api/notes/:id', (request, response) => {
+app.get('/api/notes/:id', (request, response, next) => {
   Note.findById(request.params.id)
     .then(note => {
       if (note) {
         response.json(note)
       } else {
-        response.status(404).end() 
+        response.status(404).end()
       }
     })
-    .catch(error => {
-      console.log(error)
-
-      response.status(400).send({ error: 'malformatted id' })
-    })
+    .catch(error => next(error))
 })
 
 const PORT = process.env.PORT
