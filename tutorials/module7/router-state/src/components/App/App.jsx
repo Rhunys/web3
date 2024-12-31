@@ -74,7 +74,15 @@ const App = () => {
     setActionToBePerformed(false);
   };
 
-  // TODO : pass the state and functions to the children components
+  const fullPizzaContext = {
+    addPizza,
+    pizzas,
+    setPizzas,
+    actionToBePerformed,
+    setActionToBePerformed,
+    clearActionToBePerformed,
+    drinks,
+  };
 
   return (
     <div className="page">
@@ -85,12 +93,13 @@ const App = () => {
       />
       <main>
         <NavBar />
-        <Outlet />
+        <Outlet context={fullPizzaContext} />
       </main>
       <Footer />
     </div>
   );
 };
+
 
 const nextPizzaId = (pizzas) => {
   const ids = pizzas.map((pizza) => pizza.id);
