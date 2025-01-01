@@ -110,6 +110,8 @@ const typeDefs = `
     type Author {
         name: String!
         bookCount: Int!
+        born: Int
+        id: ID!
     }
 
     type Query {
@@ -118,6 +120,21 @@ const typeDefs = `
         allBooks(author: String, genre: String): [Book!]!
         allAuthors: [Author!]!
     }
+
+    type Mutation {
+        addBook(
+            title: String!
+            author: String!
+            published: Int!
+            genres: [String!]!
+        ): Book
+
+        editAuthor(
+            name: String!
+            setBornTo: Int!
+        ): Author
+    }
+
 
     enum YesNo {
         YES
@@ -141,9 +158,32 @@ const resolvers = {
       },
       allAuthors: () => authors.map(author => {
         const bookCount = books.filter(book => book.author === author.name).length;
-        return { name: author.name, bookCount };
+        return { name: author.name, bookCount, born: author.born, id: author.id };
       }),
     },
+    Mutation : {
+      addBook: (root, args) => {
+        if (books.find(book => book.title === args.title)) {
+          throw new GraphQLError('Book title must be unique');
+        }
+        if (!authors.find(author => author.name === args.author)) {
+          authors = authors.concat({ name: args.author, id: uuid() });
+        }
+        const newBook = { ...args, id: uuid() };
+        books = books.concat(newBook);
+        return newBook;
+      },
+
+      editAuthor: (root, args) => {
+        const author = authors.find(author => author.name === args.name);
+        if (!author) {
+          return null;
+        }
+        const updatedAuthor = { ...author, born: args.setBornTo };
+        authors = authors.map(author => author.name === args.name ? updatedAuthor : author);
+        return updatedAuthor;
+      }
+    }
   };
 
 const server = new ApolloServer({
