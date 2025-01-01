@@ -1,0 +1,56 @@
+/* Reset default styles */
+body, ul, li, a {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+/* NavBar container */
+nav {
+    background-color: #1c1c1c; /* Dark background for elegance */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center; /* Center the nav items */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* List container */
+nav ul {
+    display: flex;
+    gap: 20px; /* Space between items */
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* List items */
+nav li {
+    list-style: none;
+}
+
+/* Links */
+nav a {
+    color: #ffffff; /* White text color */
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: color 0.3s ease; /* Smooth hover effect */
+}
+
+/* Hover effect for links */
+nav a:hover {
+    color: #f39c12; /* Highlight color */
+    text-shadow: 0 0 5px #f39c12; /* Glow effect */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column; /* Stack items vertically */
+        gap: 10px; /* Adjust spacing */
+    }
+    nav {
+        padding: 15px;
+    }
+}
