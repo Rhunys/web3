@@ -115,22 +115,32 @@ const typeDefs = `
     type Query {
         bookCount: Int!
         authorCount: Int!
-        allBooks: [Book!]!
+        allBooks(author: String): [Book!]!
         allAuthors: [Author!]!
+    }
+
+    enum YesNo {
+        YES
+        NO
     }
 `
 
 const resolvers = {
-  Query: {
-    bookCount: () => books.length,
-    authorCount: () => authors.length,
-    allBooks: () => books,
-    allAuthors: () => authors.map(author => {
-      const bookCount = books.filter(book => book.author === author.name).length
-      return { name: author.name, bookCount }
-    })
-  }
-}
+    Query: {
+      bookCount: () => books.length,
+      authorCount: () => authors.length,
+      allBooks: (root, args) => {
+        if (!args.author) {
+          return books;
+        }
+        return books.filter(book => book.author === args.author);
+      },
+      allAuthors: () => authors.map(author => {
+        const bookCount = books.filter(book => book.author === author.name).length;
+        return { name: author.name, bookCount };
+      }),
+    },
+  };
 
 const server = new ApolloServer({
   typeDefs,
