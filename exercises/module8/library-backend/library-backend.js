@@ -135,7 +135,6 @@ const typeDefs = `
         ): Author
     }
 
-
     enum YesNo {
         YES
         NO
