@@ -13,15 +13,15 @@ const App = () => {
     pollInterval: 2000
   })
 
-  if (result.loading)  {
-    return <div>loading...</div>
-  }
-
   const notify = (message) => {
     setErrorMessage(message)
     setTimeout(() => {
       setErrorMessage(null)
     }, 10000)
+  }
+
+  if (result.loading)  {
+    return <div>loading...</div>
   }
 
   return (
